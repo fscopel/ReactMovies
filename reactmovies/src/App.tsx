@@ -1,15 +1,25 @@
+import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
-import { HomePage } from "./pages/HomePage";
 
 export const App = () => {
   return (
     <>
       <Header>
-        Home | Movie Reviews | Top Rated | New Releases | About | Contact
-        <hr />
+        <Link to={`/`}>Home</Link>
+        {" | "}
+        <Link to={`/moviereviews`}>Movie Reviews</Link>
+        {" | "}
+        <Link to={`/toprated`}>Top Rated</Link>
+        {" | "}
+        <Link to={`/newreleases`}>New Releases</Link>
+        {" | "}
+        <Link to={`/about`}>About</Link>
+        {" | "}
+        <Link to={`/contact`}>Contact</Link>
+        <hr style={{ margin: "0px", marginTop: "8px" }} />
       </Header>
-      <HomePage />
+      <Outlet />
     </>
   );
 };
@@ -19,4 +29,5 @@ const Header = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
+  padding-top: 8px;
 `;
