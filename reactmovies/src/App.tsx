@@ -20,6 +20,10 @@ export const App = () => {
         <hr style={{ margin: "0px", marginTop: "8px" }} />
       </Header>
       <Outlet />
+      <Footer>
+        {"Data source and images provided by "}
+        <img src="/tmdb_logo.svg" alt="TMDB attribution logo" width={80} />
+      </Footer>
     </>
   );
 };
@@ -30,4 +34,13 @@ const Header = styled.nav`
   left: 0;
   width: 100%;
   padding-top: 8px;
+`;
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 8px;
+  font-size: 10px;
 `;
