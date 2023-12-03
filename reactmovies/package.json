@@ -4,10 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:api": "npm run generate:api:fetch && npm run generate:api:generate && npm run generate:api:cleanup",
+    "generate:api:fetch": "curl --insecure https://localhost:7057/swagger/v1/swagger.json -o src/data/api/openapi.json",
+    "generate:api:generate": "rimraf src/data/api/client && podman run --rm -it -v .:/local docker.io/openapitools/openapi-generator-cli:v7.0.1 generate -i /local/src/data/api/openapi.json -g typescript-fetch -o /local/src/data/api/client",
+    "generate:api:cleanup": "prettier --write src/data/api/client"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.8.4",
