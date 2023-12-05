@@ -1,5 +1,4 @@
 /* tslint:disable */
 /* eslint-disable */
-export * from './DateOnly';
-export * from './DayOfWeek';
-export * from './WeatherForecast';
+export * from "./TopRatedMovies";
+export * from "./TopRatedResult";

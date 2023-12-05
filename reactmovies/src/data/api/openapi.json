@@ -5,38 +5,39 @@
     "version": "1.0"
   },
   "paths": {
-    "/WeatherForecast": {
+    "/api/movie/toprated": {
       "get": {
         "tags": [
-          "WeatherForecast"
+          "Movie"
         ],
-        "operationId": "GetWeatherForecast",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/TopRatedResult"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/TopRatedResult"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/TopRatedResult"
                 }
               }
             }
@@ -47,68 +48,91 @@
   },
   "components": {
     "schemas": {
-      "DateOnly": {
+      "TopRatedMovies": {
         "type": "object",
         "properties": {
-          "year": {
+          "adult": {
+            "type": "boolean"
+          },
+          "backdrop_path": {
+            "type": "string",
+            "nullable": true
+          },
+          "genre_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "id": {
             "type": "integer",
             "format": "int32"
           },
-          "month": {
+          "original_language": {
+            "type": "string",
+            "nullable": true
+          },
+          "original_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "overview": {
+            "type": "string",
+            "nullable": true
+          },
+          "popularity": {
+            "type": "number",
+            "format": "double"
+          },
+          "poster_path": {
+            "type": "string",
+            "nullable": true
+          },
+          "release_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "video": {
+            "type": "boolean"
+          },
+          "vote_average": {
+            "type": "number",
+            "format": "double"
+          },
+          "vote_count": {
             "type": "integer",
             "format": "int32"
-          },
-          "day": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dayOfWeek": {
-            "$ref": "#/components/schemas/DayOfWeek"
-          },
-          "dayOfYear": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "dayNumber": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
           }
         },
         "additionalProperties": false
       },
-      "DayOfWeek": {
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "WeatherForecast": {
+      "TopRatedResult": {
         "type": "object",
         "properties": {
-          "date": {
-            "$ref": "#/components/schemas/DateOnly"
-          },
-          "temperatureC": {
+          "page": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
-            "type": "string",
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TopRatedMovies"
+            },
             "nullable": true
+          },
+          "total_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total_results": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

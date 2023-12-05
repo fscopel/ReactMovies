@@ -1,8 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const App = () => {
+  const queryClient = new QueryClient();
+
   return (
     <>
       <Header>
@@ -19,7 +22,9 @@ export const App = () => {
         <Link to={`/contact`}>Contact</Link>
         <hr style={{ margin: "0px", marginTop: "8px" }} />
       </Header>
-      <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
       <Footer>
         {"Data source and images provided by "}
         <img src="/tmdb_logo.svg" alt="TMDB attribution logo" width={80} />
@@ -34,13 +39,16 @@ const Header = styled.nav`
   left: 0;
   width: 100%;
   padding-top: 8px;
+  background-color: #242424;
 `;
 
 const Footer = styled.div`
+  background-color: #242424;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
+  padding-top: 4px;
   font-size: 10px;
 `;

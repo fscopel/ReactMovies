@@ -1,9 +1,8 @@
 .openapi-generator-ignore
-apis/WeatherForecastApi.ts
+apis/MovieApi.ts
 apis/index.ts
 index.ts
-models/DateOnly.ts
-models/DayOfWeek.ts
-models/WeatherForecast.ts
+models/TopRatedMovies.ts
+models/TopRatedResult.ts
 models/index.ts
 runtime.ts
