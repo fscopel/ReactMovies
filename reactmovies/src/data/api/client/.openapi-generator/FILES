@@ -1,7 +1,13 @@
 .openapi-generator-ignore
+apis/ConfigurationApi.ts
 apis/MovieApi.ts
 apis/index.ts
 index.ts
+models/Dates.ts
+models/NewReleaseMovies.ts
+models/NewReleaseResult.ts
+models/TmdbConfiguration.ts
+models/TmdbImages.ts
 models/TopRatedMovies.ts
 models/TopRatedResult.ts
 models/index.ts

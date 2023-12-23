@@ -17,17 +17,12 @@ namespace ReactMoviesAPI.Controllers
         }
 
         [HttpGet("details")]
-        public async Task<ActionResult<string?>> GetConfigDetails()
+        public async Task<ActionResult<TmdbConfiguration>> GetConfigDetails()
         {
             var result = await _tmdbApiService.GetConfigurationDetails();
-            //if(string.IsNullOrEmpty(result) == false)
-            //{
-            //    return JsonSerializer.Deserialize<TopRatedResult>(result);
-            //}   
+            var config = JsonSerializer.Deserialize<TmdbConfiguration>(result);
 
-            return result;
-
-
+            return config;
         }
 
     }

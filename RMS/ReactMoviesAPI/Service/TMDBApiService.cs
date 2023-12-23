@@ -20,7 +20,25 @@ namespace ReactMoviesAPI.Service
 
         public async Task<string> GetTopRatedMovies(int page)
         {
-            var response = await _httpClient.GetAsync($"movie/top_rated?page={page}&api_key={_apiKey}");
+            var response = await _httpClient.GetAsync($"movie/top_rated?page={page}&language=en-US&api_key={_apiKey}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return content;
+        }
+
+        public async Task<string> GetNewReleases(int page)
+        {
+            var response = await _httpClient.GetAsync($"movie/now_playing?page={page}&language=en-US&api_key={_apiKey}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return content;
+        }
+
+        public async Task<string> GetNowPlayingMovies(int page)
+        {
+            var response = await _httpClient.GetAsync($"movie/now_playing?page={page}&language=en-US&api_key={_apiKey}");
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();

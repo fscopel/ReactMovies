@@ -21,14 +21,44 @@ namespace ReactMoviesAPI.Controllers
         {
             page = page <= 0 ? 1 : page;
 
-            var movieData = await _tmdbApiService.GetTopRatedMovies(page);
-            if(string.IsNullOrEmpty(movieData) == false)
+            var result = await _tmdbApiService.GetTopRatedMovies(page);
+            if(string.IsNullOrEmpty(result) == false)
             {
-                return JsonSerializer.Deserialize<TopRatedResult>(movieData);
+                return JsonSerializer.Deserialize<TopRatedResult>(result);
             }   
 
             return NotFound();
             
+        }
+
+        [HttpGet("newreleases")]
+        public async Task<ActionResult<NewReleaseMovies?>> GetNewReleases(int page = 1)
+        {
+            page = page <= 0 ? 1 : page;
+
+            var result = await _tmdbApiService.GetNewReleases(page);
+            if (string.IsNullOrEmpty(result) == false)
+            {
+                return JsonSerializer.Deserialize<NewReleaseMovies>(result);
+            }
+
+            return NotFound();
+
+        }
+
+        [HttpGet("nowplaying")]
+        public async Task<ActionResult<string>> GetNowPlaying(int page = 1)
+        {
+            page = page <= 0 ? 1 : page;
+
+            var result = await _tmdbApiService.GetNowPlayingMovies(page);
+            if (string.IsNullOrEmpty(result) == false)
+            {
+                return result;
+            }
+
+            return NotFound();
+
         }
 
     }

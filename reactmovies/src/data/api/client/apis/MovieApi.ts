@@ -13,8 +13,21 @@
  */
 
 import * as runtime from "../runtime";
-import type { TopRatedResult } from "../models/index";
-import { TopRatedResultFromJSON, TopRatedResultToJSON } from "../models/index";
+import type { NewReleaseMovies, TopRatedResult } from "../models/index";
+import {
+  NewReleaseMoviesFromJSON,
+  NewReleaseMoviesToJSON,
+  TopRatedResultFromJSON,
+  TopRatedResultToJSON,
+} from "../models/index";
+
+export interface ApiMovieNewreleasesGetRequest {
+  page?: number;
+}
+
+export interface ApiMovieNowplayingGetRequest {
+  page?: number;
+}
 
 export interface ApiMovieTopratedGetRequest {
   page?: number;
@@ -24,6 +37,92 @@ export interface ApiMovieTopratedGetRequest {
  *
  */
 export class MovieApi extends runtime.BaseAPI {
+  /**
+   */
+  async apiMovieNewreleasesGetRaw(
+    requestParameters: ApiMovieNewreleasesGetRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<NewReleaseMovies>> {
+    const queryParameters: any = {};
+
+    if (requestParameters.page !== undefined) {
+      queryParameters["page"] = requestParameters.page;
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    const response = await this.request(
+      {
+        path: `/api/movie/newreleases`,
+        method: "GET",
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    );
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      NewReleaseMoviesFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   */
+  async apiMovieNewreleasesGet(
+    requestParameters: ApiMovieNewreleasesGetRequest = {},
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<NewReleaseMovies> {
+    const response = await this.apiMovieNewreleasesGetRaw(
+      requestParameters,
+      initOverrides,
+    );
+    return await response.value();
+  }
+
+  /**
+   */
+  async apiMovieNowplayingGetRaw(
+    requestParameters: ApiMovieNowplayingGetRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<string>> {
+    const queryParameters: any = {};
+
+    if (requestParameters.page !== undefined) {
+      queryParameters["page"] = requestParameters.page;
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    const response = await this.request(
+      {
+        path: `/api/movie/nowplaying`,
+        method: "GET",
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    );
+
+    if (this.isJsonMime(response.headers.get("content-type"))) {
+      return new runtime.JSONApiResponse<string>(response);
+    } else {
+      return new runtime.TextApiResponse(response) as any;
+    }
+  }
+
+  /**
+   */
+  async apiMovieNowplayingGet(
+    requestParameters: ApiMovieNowplayingGetRequest = {},
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<string> {
+    const response = await this.apiMovieNowplayingGetRaw(
+      requestParameters,
+      initOverrides,
+    );
+    return await response.value();
+  }
+
   /**
    */
   async apiMovieTopratedGetRaw(
